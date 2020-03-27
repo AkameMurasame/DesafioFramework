@@ -1,0 +1,51 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model DesafioFramework.Models.Dto.CidadeDto
+
+<div class="row col-12">
+    <form asp-action="Edit">
+        <div class="form-group">
+            <label asp-for="Descricao">Descrição</label>
+            <input type="text" class="form-control" asp-for="Descricao" id="nome" placeholder="Nome da cidade">
+        </div>
+        <div class="form-group">
+            <label asp-for="fkidEstado">Estado</label>
+            <select asp-for="fkidEstado" id="estado" class="form-control">
+                @foreach (var item in Model.estados)
+                {
+                    @if (Model.fkidEstado == item.idEstado)
+                    {
+                        <option value="@item.idEstado">@item.descricao</option>
+                    }
+                    else
+                    {
+                        <option value="@item.idEstado">@item.descricao</option>
+                    }
+                }
+            </select>
+        </div>
+        <button type="button" onclick="Edit()" class="btn btn-primary">Cadastrar</button>
+    </form>
+</div>
+
+<script>
+    function Edit() {
+        var e = document.getElementById("nome").value;
+        var er = document.getElementById("estado");
+        var idestado = er.options[er.selectedIndex].value;
+        const formData = new FormData();
+        formData.append('Descricao', e);
+        formData.append('fkidEstado', idestado);
+        formData.append('idCidade', @Model.idCidade);
+
+        console.log(formData);
+       return fetch('/cidade', {
+            method: 'put',
+           body: formData
+       }).then(window.location.href = "/cidade");
+    }
+</script>

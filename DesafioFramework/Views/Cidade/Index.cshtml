@@ -1,0 +1,50 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Lista de Cidades";
+}
+
+@model List<DesafioFramework.Models.Dto.CidadeViewDto>
+
+<div class="row col-12">
+    <div class="col-12">
+        <a class="btn btn-primary" href="/cidade/create">Nova Cidade</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Id Cidade</th>
+                <th scope="col">Cidade</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@Html.DisplayFor(modelItem => item.idCidade)</th>
+                    <td>  @Html.DisplayFor(modelItem => item.Descricao)</td>
+                    <td>  @Html.DisplayFor(modelItem => item.fkidEstado)</td>
+                    <td>
+                    <td>
+                        <a href="/cidade/@item.idCidade" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                        <a href="/cidade/edit/@item.idCidade" class="btn btn-success"><i class="fa fa-edit"></i></a>
+                        <button type="button" onclick="deleteItem(@item.idCidade)" class="btn btn-danger"><i class="fa fa-trash-alt"></i></button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function deleteItem(item) {
+        fetch('/cidade/delete/' + item, {
+            method: 'DELETE',
+        })
+            .then(res => res.text()) // or res.json()
+            .then(window.location.reload())
+    }
+</script>

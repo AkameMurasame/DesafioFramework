@@ -1,0 +1,49 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Lista de Estados";
+}
+
+@model IEnumerable<DesafioFramework.Models.Dto.EstadoViewDto>
+
+<div class="row col-12">
+    <div class="col-12">
+        <a class="btn btn-primary mb-2" href="/estado/create">Novo Estado</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Id Estado</th>
+                <th scope="col">Cidade</th>
+                <th scope="col">Pais</th>
+                <th scope="col">Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@Html.DisplayFor(modelItem => item.idEstado)</th>
+                    <td>  @Html.DisplayFor(modelItem => item.descricao)</td>
+                    <td>  @Html.DisplayFor(modelItem => item.fkidPais)</td>
+                    <td>
+                        <a href="/estado/@item.idEstado" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                        <a href="/estado/edit/@item.idEstado" class="btn btn-success"><i class="fa fa-edit"></i></a>
+                        <button type="button" onclick="deleteItem(@item.idEstado)" class="btn btn-danger"><i class="fa fa-trash-alt"></i></button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function deleteItem(item) {
+        fetch('/estado/delete/' + item, {
+            method: 'DELETE',
+        })
+            .then(res => res.text()) // or res.json()
+            .then(window.location.reload())
+    }
+</script>

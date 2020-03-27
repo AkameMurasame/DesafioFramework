@@ -1,0 +1,43 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model DesafioFramework.Models.Dto.PacienteViewDto
+
+    <div class="row col-12">
+        <div class="row col-12">
+            <div class="col-12 col-md-4">
+                <div class="form-group">
+                    <label asp-for="nome">Nome do Paciente</label>
+                    <input type="text" class="form-control" asp-for="nome" placeholder="Nome do Paciente" readonly>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="form-group">
+                    <label asp-for="nome">Cpf do Paciete</label>
+                    <input type="text" class="form-control cpf" asp-for="cpf" placeholder="Cpf do Paciente" readonly>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="form-group">
+                    <label asp-for="fkidPais">Pais</label>
+                    <input type="text" class="form-control" asp-for="fkidPais" readonly>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="form-group">
+                    <label asp-for="fkidEstado">Estado</label>
+                    <input type="text" class="form-control" asp-for="fkidEstado" readonly>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="form-group">
+                    <label asp-for="fkidEstado">Cidade</label>
+                    <input type="text" class="form-control" asp-for="fkidCidade" readonly>
+                </div>
+            </div>
+        </div>
+        <a href="/paciente" class="btn btn-primary">Voltar</a>
+    </div>

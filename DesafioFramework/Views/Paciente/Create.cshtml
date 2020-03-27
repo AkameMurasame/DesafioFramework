@@ -1,0 +1,89 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model DesafioFramework.Models.Dto.PacienteDto
+
+<div class="row col-12">
+    <form asp-action="Create" class="row col-12">
+        <div class="col-12 col-md-4">
+            <div class="form-group">
+                <label asp-for="nome">Nome do Paciente</label>
+                <input type="text" class="form-control" asp-for="nome" placeholder="Nome do Paciente">
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="form-group">
+                <label asp-for="nome">Cpf do Paciete</label>
+                <input type="text" class="form-control cpf" asp-for="cpf" placeholder="Cpf do Paciente">
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="form-group">
+                <label asp-for="fkidPais">Pais</label>
+                <select asp-for="fkidPais" class="form-control" id="pais" onchange="getEstados()">
+                    <option value="">Selecione</option>
+                    @foreach (var item in Model.pais)
+                    {
+                        <option value="@item.idPais">@item.Descricao</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="form-group">
+                <label asp-for="fkidEstado">Estado</label>
+                <select asp-for="fkidEstado" class="form-control" id="estado" onchange="getCidades()">
+                </select>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="form-group">
+                <label asp-for="fkidEstado">Cidade</label>
+                <select asp-for="fkidCidade" class="form-control" id="cidade">
+                </select>
+            </div>
+        </div>
+        <div class="col-12 col-md-12">
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    function getEstados() {
+        var e = document.getElementById("pais");
+        var idPais = e.options[e.selectedIndex].value;
+        console.log(idPais);
+        fetch("/api/estado/" + idPais)
+            .then(response => response.json())
+            .then(json => {
+                let options = "<option value=''>Selecione</option>";
+
+                json.forEach(estado => {
+                    options += `<option value="${estado.idEstado}">${estado.descricao}</option>`;
+                });
+
+                document.getElementById("estado").innerHTML = options;
+            });
+    }
+
+    function getCidades() {
+        var e = document.getElementById("estado");
+        var idEstado = e.options[e.selectedIndex].value;
+        console.log(idEstado);
+        fetch("/api/cidade/" + idEstado)
+            .then(response => response.json())
+            .then(json => {
+                let options = "<option value=''>Selecione</option>";
+
+                json.forEach(cidade => {
+                    options += `<option value="${cidade.idCidade}">${cidade.descricao}</option>`;
+                });
+
+                document.getElementById("cidade").innerHTML = options;
+            });
+    }
+</script>

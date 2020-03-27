@@ -1,0 +1,26 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model DesafioFramework.Models.Dto.EstadoDto
+
+<div class="row col-12">
+    <form asp-action="Create">
+        <div class="form-group">
+            <label asp-for="descricao">Descrição</label>
+            <input type="text" class="form-control" asp-for="descricao" placeholder="Nome do estado">
+        </div>
+        <div class="form-group">
+            <label asp-for="fkidPais">Descrição</label>
+            <select asp-for="fkidPais" class="form-control">
+                @foreach (var item in Model.paises)
+                {
+                <option value="@item.idPais">@item.Descricao</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+    </form>
+</div>

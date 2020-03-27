@@ -1,0 +1,33 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model DesafioFramework.Models.Dto.PaisDto
+
+<div class="row col-12">
+    <form asp-action="Edit">
+        <div class="form-group">
+            <label asp-for="Descricao">Descrição</label>
+            <input type="text" class="form-control" asp-for="Descricao" id="nome" placeholder="Nome do Pais">
+            <input type="hidden" asp-for="idPais" id="idpais">
+        </div>
+        <button type="button" onclick="Edit()" class="btn btn-primary">Cadastrar</button>
+    </form>
+</div>
+
+<script>
+    function Edit() {
+        var e = document.getElementById("nome").value;
+        var er = document.getElementById("idpais").value;
+        const formData = new FormData();
+        formData.append('Descricao', e);
+        formData.append('idPais', er);
+
+        return fetch('/pais', {
+            method: 'put',
+            body: formData
+        }).then(window.location.href = "/pais");
+    }
+</script>
